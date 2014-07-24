@@ -1,0 +1,16 @@
+/* GeoDirectory Style Modifications for Genesis */
+/* These are basic integration styles. You should add your own styles to your child theme's stylesheet as plugin updates will override the styles here. */
+
+
+/* ##### DO NOT MODIFY THIS FILE ##### */
+
+.content .geodir_category_list_view li {
+	border: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.sidebar .entry {
+	margin: 0;
+	padding: 0;
+}
