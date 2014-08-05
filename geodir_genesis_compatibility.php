@@ -3,12 +3,15 @@
 Plugin Name: GeoDirectory - Genesis Theme Compatibility
 Plugin URI: http://wpgeodirectory.com
 Description: This plugin lets the GeoDirectory Plugin use the Genesis theme HTML wrappers to fit and work perfectly.
-Version: 1.0.1
+Version: 1.0.3
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 
-*/
+*/ 
 
+
+// FREMOVE AND RE-ENQUEUE CHILD STYLESHEET
+add_action( 'genesis_setup', 'pw_delay_genesis_stylesheet' );
 
 // BECAUSE THIS PLUGIN IS CALLED BEFORE GD WE MUST CALL THIS PLUGIN ONCE GD LOADS
 add_action( 'plugins_loaded', 'geodir_genesis_action_calls', 10 );
@@ -68,9 +71,20 @@ function geodir_genesis_action_calls(){
 /* FUNCTIONS
 ****************************************************************************************/
 
-function geodir_genesis_post_view_article_class($grid_view_class) {
-	$grid_view_class = 'entry';
-	return $grid_view_class;
+// FUNCTION TO REMOVE CHILD STYLESHEET AND ENQUEUE AT A LATER PRIORITY
+function pw_delay_genesis_stylesheet() {
+
+	// If Parallax Pro theme is active, enqueue at earlier priority
+	$priority = 'Parallax Pro Theme' == wp_get_theme() ? 14 : 999;
+
+	remove_action( 'genesis_meta', 'genesis_load_stylesheet' );
+	add_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet', $priority );
+}
+
+// ADD ENTRY CLASS TO ARTICLES CREATED BY GEODIRECTORY
+function geodir_genesis_post_view_article_class() {
+	$post_view_article_class = 'entry';
+	return $post_view_article_class;
 }
 
 // ENQUEUE STYLESHEET & ADD BODY CLASS
@@ -87,9 +101,12 @@ function geodir_genesis_body_class($classes) {
 
 // REPLACE HOME TOP SIDEBAR AFTER HEADER
 function geodir_genesis_home_sidebar() {
-		global $wp;
-		if ( $wp->query_vars['page_id'] == get_option( 'geodir_location_page' ) || is_home() && !$_GET['geodir_signup'] ) {
+	// 	if ( ( is_front_page() && get_option('geodir_set_as_home') ) || geodir_is_page('location') && !$_GET['geodir_signup'] ) {
+
+		if ( geodir_is_page('location') || ( is_front_page() && get_option('geodir_set_as_home') ) && !$_GET['geodir_signup'] ) {
+			echo '<div class="gd-genesis-home-top">';
         	dynamic_sidebar('geodir_home_top');
+			echo '</div>';
 		}
 }
 
@@ -104,23 +121,42 @@ function geodir_genesis_search_container_close() {
 }
 
 // WRAPPER OPEN FUNCTIONS
-function geodir_genesis_action_wrapper_open(){
+function geodir_genesis_action_wrapper_open() {
 	echo '<div class="content-sidebar-wrap">';
+	if ( $_GET['geodir_signup'] ) {
+		echo '<div class="geodir-signup-wrapper">';
+	}
 }
 
 // WRAPPER CLOSE FUNCTIONS
-function geodir_genesis_action_wrapper_close(){
+function geodir_genesis_action_wrapper_close() {
+	if ( $_GET['geodir_signup'] ) {
+		echo '</div">';
+	}
 	echo '</div>';
+	// Check for 3 column layout and add sidebar-alt
+	$site_layout = genesis_site_layout();
+	if ( $site_layout == 'sidebar-content-sidebar' || $site_layout == 'content-sidebar-sidebar' || $site_layout == 'sidebar-sidebar-content' ) {
+		echo '<aside class="sidebar sidebar-secondary widget-area" itemtype="http://schema.org/WPSideBar" itemscope="itemscope" role="complementary">';
+		dynamic_sidebar( 'sidebar-alt' );
+		echo '</aside>';
+	}
 }
 
 // WRAPPER CONTENT OPEN FUNCTIONS
 function geodir_genesis_action_wrapper_content_open($type='',$id='',$class=''){
 		echo '<main class="content '. $class .'" itemprop="mainContentOfPage" role="main">';
+		if ( geodir_is_page('add-listing') ) {
+			echo '<article class="entry">';
+		}
 }
 
 // WRAPPER CONTENT CLOSE FUNCTIONS
 function geodir_genesis_action_wrapper_content_close(){
 	echo '</main>';
+	if ( geodir_is_page('add-listing') ) {
+		echo '</article>';
+	}
 }
 
 // SIDEBAR RIGHT OPEN FUNCTIONS
@@ -135,9 +171,9 @@ function geodir_genesis_action_sidebar_right_close($type=''){
 
 // REPLACE GENESIS BREADCRUMBS FUNCTION
 function geodir_replace_breadcrumb() {
-	echo '<div class="wrap">';
+	echo '<div class="geodir-breadcrumb-bar"><div class="wrap">';
 	geodir_breadcrumb();
-	echo '</div>';
+	echo '</div></div>';
 }
 
 

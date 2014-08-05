@@ -4,13 +4,8 @@
 
 /* ##### DO NOT MODIFY THIS FILE ##### */
 
-.content .geodir_category_list_view li {
-	border: none;
-	margin-bottom: 0;
-	padding-bottom: 0;
-}
-
-.sidebar .entry {
+.sidebar .entry,
+.footer-widgets .entry {
 	margin: 0;
 	padding: 0;
 }
