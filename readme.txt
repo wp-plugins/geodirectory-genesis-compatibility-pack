@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=payments
 Tags:  Genesis, geodirectory, address book, addressbook, addresses, bio, biographies, bios, business, business directory plugin, business-directory, businesses, directories, directory, directory plugin, directory widget, googlemap, googlemaps, google maps, list, listings, lists, member directory, members directories, members directory, microformat, microformats, profile, profiles, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, yelp clone, tripadvisor clone, yellow pages clone, wordpress business directory plugin, wordpress directory theme, wordpress business directory theme, wordpress city directory plugin, wordpress local directory plugin
 Requires at least: 3.1
 Tested up to: 3.9.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Plugin providing all functions needed to make Genesis Theme 100% compatible with GeoDirectory
@@ -42,6 +42,24 @@ Automatic updates should seamlessly work. We always suggest you backup up your w
 == Screenshots ==
 = coming soon =
 == Changelog ==
+= 1.0.4 =
+* Removed unneccesary css
+
+* Re-built structure to include:
+* Force full-width layout on signup page
+* Make secondary sidebar appear beneath GD top widgets
+* Allow GD left sidebars or default to Genesis secondary sidebar
+
+* Added Genesis hooks for:
+* genesis_before_content_sidebar_wrap
+* genesis_before_content
+* genesis_before_sidebar_widget_area
+* genesis_after_sidebar_widget_area
+* genesis_before_sidebar_alt_widget_area
+* genesis_after_sidebar_alt_widget_area
+
+* Added conditional to stop breadcrumb wrapper appearing on homepage and signup page
+
 = 1.0.3 =
 * Removed unneccesary css
 * Added Genesis secondary sidebar for 3 column child themes
