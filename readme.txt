@@ -1,5 +1,5 @@
 === GeoDirectory - Genesis Compatibility Pack ===
-Contributors: stiofansisland, paoltaia, rightmentor
+Contributors: stiofansisland, paoltaia, posh-john
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=payments@nomaddevs.com&item_name=Donation+for+WPGD
 Tags:  Genesis, geodirectory, address book, addressbook, addresses, bio, biographies, bios, business, business directory plugin, business-directory, businesses, directories, directory, directory plugin, directory widget, googlemap, googlemaps, google maps, list, listings, lists, member directory, members directories, members directory, microformat, microformats, profile, profiles, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, yelp clone, tripadvisor clone, yellow pages clone, wordpress business directory plugin, wordpress directory theme, wordpress business directory theme, wordpress city directory plugin, wordpress local directory plugin
 Requires at least: 3.1
