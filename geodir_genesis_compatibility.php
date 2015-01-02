@@ -3,11 +3,12 @@
 Plugin Name: GeoDirectory - Genesis Theme Compatibility
 Plugin URI: http://wpgeodirectory.com
 Description: This plugin lets the GeoDirectory Plugin use the Genesis theme HTML wrappers to fit and work perfectly.
-Version: 1.0.4
+Version: 1.0.5
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 
 */ 
+
 
 // FREMOVE AND RE-ENQUEUE CHILD STYLESHEET
 add_action( 'genesis_setup', 'pw_delay_genesis_stylesheet' );
@@ -29,6 +30,7 @@ function geodir_genesis_action_calls(){
 	
 	// HOME TOP SIDEBAR
 	remove_action( 'geodir_home_before_main_content', 'geodir_action_geodir_sidebar_home_top', 10 );
+	remove_action( 'geodir_location_before_main_content', 'geodir_action_geodir_sidebar_home_top', 10 );
 	add_action( 'genesis_after_header', 'geodir_genesis_home_sidebar', 21 );
 	
 	// WRAPPER OPEN ACTIONS
@@ -64,6 +66,7 @@ function geodir_genesis_action_calls(){
 	remove_action( 'geodir_author_before_main_content', 'geodir_breadcrumb', 20 );
 	remove_action( 'geodir_search_before_main_content', 'geodir_breadcrumb', 20 );
 	remove_action( 'geodir_home_before_main_content', 'geodir_breadcrumb', 20 );
+	remove_action( 'geodir_location_before_main_content', 'geodir_breadcrumb', 20 );
 	add_action( 'genesis_after_header', 'geodir_replace_breadcrumb', 20 );
 	
 	// REMOVE LEFT SIDEBARS
@@ -109,14 +112,14 @@ function geodir_genesis_body_class($classes) {
 
 // FORCE FULL WIDTH LAYOUT ON SIGNUP PAGE
 function geodir_genesis_meta() {
-	if ( $_GET['geodir_signup'] ) {
+	if ( isset($_GET['geodir_signup']) ) {
 		add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 	}
 }
 
 // REPLACE HOME TOP SIDEBAR AFTER HEADER
 function geodir_genesis_home_sidebar() {
-	if ( geodir_is_page('location') || ( is_front_page() && get_option('geodir_set_as_home') ) && !$_GET['geodir_signup'] ) {
+	if ( geodir_is_page('location') || ( is_front_page() && get_option('geodir_set_as_home') ) && !isset($_GET['geodir_signup']) ) {
 		echo '<div class="gd-genesis-home-top">';
 		dynamic_sidebar('geodir_home_top');
 		echo '</div>';
@@ -126,14 +129,14 @@ function geodir_genesis_home_sidebar() {
 // WRAPPER OPEN FUNCTIONS
 function geodir_genesis_action_wrapper_open() {
 	echo '<div class="geodir-genesis-outer">';
-	if ( $_GET['geodir_signup'] ) {
+	if ( isset($_GET['geodir_signup']) ) {
 		echo '<div class="geodir-signup-wrapper">';
 	}
 }
 
 // WRAPPER CLOSE FUNCTIONS
 function geodir_genesis_action_wrapper_close() {
-	if ( $_GET['geodir_signup'] ) {
+	if ( isset($_GET['geodir_signup']) ) {
 		echo '</div>'; // Closes .geodir-signup-wrapper
 		echo '</div>'; // Closes .content-sidebar-wrap (because no sidebar exists to close it)
 	}
@@ -178,7 +181,7 @@ function geodir_genesis_action_sidebar_right_close($type=''){
 // GENERATE SECONDARY SIDEBAR IF THREE COLUMN LAYOUT
 function geodir_secondary_sidebar_action() {
 	$site_layout = genesis_site_layout();
-	if ( !$_GET['geodir_signup'] ) {
+	if ( !isset($_GET['geodir_signup']) ) {
 		if ( in_array( $site_layout, array( 'sidebar-content-sidebar', 'content-sidebar-sidebar', 'sidebar-sidebar-content' ) ) ) {
 			do_action( 'genesis_before_sidebar_alt_widget_area' );
 			echo '<aside class="sidebar sidebar-secondary widget-area" itemtype="http://schema.org/WPSideBar" itemscope="itemscope" role="complementary">';
@@ -206,7 +209,7 @@ function geodir_secondary_sidebar_action() {
 
 // REPLACE GENESIS BREADCRUMBS FUNCTION
 function geodir_replace_breadcrumb() {
-	if ( is_front_page() && get_option('geodir_set_as_home') && !$_GET['geodir_signup'] ) {
+	if ( is_front_page() && get_option('geodir_set_as_home') && !isset($_GET['geodir_signup']) ) {
 	} else {
 		echo '<div class="geodir-breadcrumb-bar"><div class="wrap">';
 		geodir_breadcrumb();

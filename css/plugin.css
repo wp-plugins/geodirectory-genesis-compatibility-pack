@@ -9,3 +9,8 @@
 	margin: 0;
 	padding: 0;
 }
+
+.geodir_location_tab_container{
+border: 1px solid #E6E6E6;
+background: none repeat scroll 0 0 #F3F3F3;	
+}
