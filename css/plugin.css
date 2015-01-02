@@ -1,0 +1,16 @@
+/* GeoDirectory Style Modifications for Genesis */
+/* These are basic integration styles. You should add your own styles to your child theme's stylesheet as plugin updates will override the styles here. */
+
+
+/* ##### DO NOT MODIFY THIS FILE ##### */
+
+.sidebar .entry,
+.footer-widgets .entry {
+	margin: 0;
+	padding: 0;
+}
+
+.geodir_location_tab_container{
+border: 1px solid #E6E6E6;
+background: none repeat scroll 0 0 #F3F3F3;	
+}
