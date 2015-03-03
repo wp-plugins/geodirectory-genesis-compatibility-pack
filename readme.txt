@@ -7,9 +7,11 @@ Tested up to: 4.1.0
 Stable tag: 1.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Plugin providing all functions needed to make Genesis Theme 100% compatible with GeoDirectory
+This plugin is no longer needed. GeoDirectory is now compatible with Genesis out of the box
 
 == Description ==
+
+This plugin is no longer needed. GeoDirectory is now compatible with Genesis out of the box
 
 With [GeoDirectory plugin](http://wordpress.org/plugins/geodirectory) and the compatibility pack you can Turn your Genesis powered website into an interactive Business Directory!
 
